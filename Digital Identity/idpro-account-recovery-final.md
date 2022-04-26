@@ -2,7 +2,7 @@ Account Recovery
 ================
 Dean H. Saxe, Sr. Security Engineer, Amazon Web Services
 
-© 2021 IDPro, Dean Saxe
+© 2021, 2022 IDPro, Dean H. Saxe
 
 *To comment on this article, please visit our [GitHub
 repository](https://github.com/IDPros/bok) and [submit an
@@ -10,7 +10,7 @@ issue](https://docs.github.com/en/github/managing-your-work-on-github/opening-an
 
 # Terminology/Glossary
 
--   **Account Owner –** An entity that “owns” or claims responsibility
+-   **Account Owner –** An entity that “owns”, claims responsibility, or holds valid credentials (e.g. not via compromise)
     for an account. Generally, an account is issued in the name of the
     owner(s) or their delegate(s) in the case of enterprises.
 
@@ -28,7 +28,7 @@ issue](https://docs.github.com/en/github/managing-your-work-on-github/opening-an
     for communicating with and solving problems on behalf of your
     customer or end-user. 
 
--   **Credentials -** Any attribute or shared secret that can be used to
+-   **Credentials -** Any attribute, shared secret, or other mechanisms that can be used to
     authenticate a user.
 
 -   **Knowledge-Based Authentication (KBA) -** A method of
@@ -69,9 +69,8 @@ Defining AR
 What is AR? You’ll see one definition above, but a fuller description
 follows. AR is a mechanism or collection of mechanisms that are used to
 maintain continuity of access to a user’s services. AR operates by
-providing an *alternative authentication mechanism* to *reestablish
-authentication credentials*, such as through re-identification of the
-user*.* A key property of any AR mechanism is that it must meet or
+providing an *alternative authentication mechanism* or an *alternative re-identification mechanism* to *reestablish
+authentication credentials* for the requester. A key property of any AR mechanism is that it must meet or
 exceed the security of the nominal authentication mechanism for the
 account that it serves to recover. If this property is not met, users
 may choose to execute the AR mechanism rather than remember their
@@ -86,7 +85,7 @@ required two pieces of readily available information: my mother-in-law’s
 maiden name and my wife’s date of birth. Each year I would log in with
 these pieces of known information, collect the documents I needed, and
 logout. The password was not required, nor did the AR process require a
-password reset or notify the account holder of the access!
+password reset or notify the account holder of the access!  Not only was this a poor account recovery mechanism due to its relative weakness, it did not only allow setting new credentials.  The "recovery" process served as an alternative authentication mechanism with no restrictions on what actions the (ab)user was able to perform.
 
 ### An Iron Triangle of Account Recovery
 
@@ -98,7 +97,7 @@ relatively more of one concern (e.g., privacy) at the cost of another
 (e.g., security or access
 continuity).<a href="#fn6" id="fnref6" class="footnote-ref"><sup>6</sup></a>  
 ![](AR-Figure1.jpg)  
-In the stock example above, the system design focused on high access
+In the stock portal example above, the system design focused on high access
 continuity exclusively to the detriment of security - the account is
 easy to access by malicious actors who could execute transactions - and
 privacy - the account owner is fully identified by the stock service, as
@@ -128,8 +127,8 @@ MFA devices, and I can recover my account through a backup code. But if
 the backup codes are lost, the password unknown, and MFA devices are not
 available, I’ll lose access to my account without recourse.
 
-Which one is correct? Potentially all of them, depending on the threat
-model.  
+Which one is correct? Potentially all of them, *depending on the threat
+model*.  
   
 Given these constraints, how can we apply this iron triangle to
 designing registration, authentication, and account recovery systems?
@@ -144,7 +143,7 @@ privacy, security, and access. ](AR-Figure2.jpg)
 Continuity. Moving from left to right on each continuum leads closer to
 the appropriate vertex of the triangle.*
 
-In a nutshell, Identity architects can use the iron triangle to first
+In a nutshell, Identity architects and security engineers can use the iron triangle to first
 identify where in the triangle the use case is situated and second to
 identify the trade-offs that are made to meet the needs of the use case.
 However, the devil is in the details, and those details will differ
@@ -164,6 +163,11 @@ the service. While both banking and social networking need to operate AR
 mechanisms for their users, the risk of compromise of each account type
 is significantly different. There is also a different set of information
 available to these different consumer services to enable AR.
+
+Consumer AR & Domestic Violence / Intimate Partner Abuse
+--------------------------------------------------------
+
+Of special concern for Consumer AR systems are abuse cases driven through domestic violence (DV), intimate partner abuse, or by friends and family of the victim.  Given the close relationships with friends, family, and romantic partnerships, it is imperative that consumer services consider this specific threat vector and implement policies and processes that resist abuse.
 
 Enterprise AR
 -------------
